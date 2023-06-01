@@ -1,0 +1,33 @@
+name: "Datadog Static Analysis"
+description: "Run a Datadog Static Analysis in your Github Action workflows"
+author: "Datadog"
+inputs:
+  dd_api_key:
+    description: "Your Datadog API key used to authenticate requests."
+    required: true
+    default: ""
+  dd_app_key:
+    description: "Your Datadog Application key used to authenticate requests."
+    required: true
+    default: ""
+  dd_service:
+    description: "The name of the service where you want your results uploaded."
+    required: true
+    default: ""
+  dd_env:
+    description: "The environment you want your results to appear in."
+    required: true
+    default: ""
+  dd_site:
+    description: "The Datadog site. For example, users in the EU may want to set datadoghq.eu."
+    required: false
+    default: "datadoghq.com"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    DD_API_KEY: ${{ inputs.dd_api_key }}
+    DD_APP_KEY: ${{ inputs.dd_app_key }}
+    DD_SERVICE: ${{ inputs.dd_service }}
+    DD_ENV: ${{ inputs.dd_env }}
+    DD_SITE: ${{ inputs.dd_site }}
