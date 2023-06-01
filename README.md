@@ -2,7 +2,7 @@
 
 Run a Datadog Static Analysis in your Github Action workflows.
 
-## Preliminary
+## Requirements
 
 To use the Datadog static analyzer, you need to add a `static-analysis.datadog.yml` file to your repositories root directory that specifies what rulesets to use.
 
@@ -10,6 +10,17 @@ To use the Datadog static analyzer, you need to add a `static-analysis.datadog.y
 rulesets:
   - <ruleset-name>
   - <ruleset-name>
+```
+
+#### Example for Python
+
+You can see an example for repositories based on Python:
+
+```yaml
+rulesets:
+  - python-security
+  - python-code-style
+  - python-best-practices
 ```
 
 ## Workflow
@@ -48,12 +59,9 @@ jobs:
 | `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2].         | True     |                 |
 | `dd_app_key` | Your Datadog Application key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2]. | True     |                 |
 | `dd_service` | The service you want your results tagged with.                                                                             | True     |                 |
-| `dd_env`     | The environment you want your results tagged with.                                                                         | True     |                 |
-| `dd_site`    | The Datadog site. For users in the EU, set to `datadoghq.eu`.                                                              | False    | `datadoghq.com` |
+| `dd_env`     | The environment you want your results tagged with.                                                                         | False    | `none`          |
+| `dd_site`    | The [Datadog site](https://docs.datadoghq.com/getting_started/site/)                                                       | False    | `datadoghq.com` |
 
-### Secrets Example
-
-![Token](imgs/secrets.jpeg)
 
 [1]: https://docs.datadoghq.com/account_management/api-app-keys/
 [2]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
