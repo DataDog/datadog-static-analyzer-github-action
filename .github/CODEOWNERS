@@ -1,1 +1,5 @@
+# Global Code Owners
 * @DataDog/static-analysis-core
+
+# Documentation
+*README.md @Datadog/documentation @DataDog/static-analysis-core
