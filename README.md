@@ -46,11 +46,10 @@ jobs:
         dd_app_key: ${{ secrets.DD_APP_KEY }}
         dd_api_key: ${{ secrets.DD_API_KEY }}
         dd_service: "my-service"
-        dd_env: "my-env"
-        dd_site: "datadoghq.com"
+        dd_env: "ci"
 ```
 
-> You **must** set your Datadog API and Application Keys as secrets in your GitHub repository. For more information, see [API and Application Keys](1)
+> You **must** set your Datadog API and Application Keys as secrets in your GitHub repository. For more information, see [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys)
 
 ## Inputs
 
@@ -61,7 +60,3 @@ jobs:
 | `dd_service` | The service you want your results tagged with.                                                                             | True     |                 |
 | `dd_env`     | The environment you want your results tagged with.                                                                         | False    | `none`          |
 | `dd_site`    | The [Datadog site](https://docs.datadoghq.com/getting_started/site/)                                                       | False    | `datadoghq.com` |
-
-
-[1]: https://docs.datadoghq.com/account_management/api-app-keys/
-[2]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
