@@ -1,10 +1,12 @@
 # Datadog Static Analyzer Github Action
 
-Run a Datadog Static Analysis in your Github Action workflows.
+## Overview
 
-## Requirements
+Run a Datadog Static Analysis test in your Github Action workflows.
 
-To use the Datadog static analyzer, you need to add a `static-analysis.datadog.yml` file to your repositories root directory that specifies what rulesets to use.
+## Setup
+
+To use Datadog Static Analysis, you need to add a `static-analysis.datadog.yml` file to your repository's root directory to specify which rulesets to use.
 
 ```yaml
 rulesets:
@@ -12,9 +14,9 @@ rulesets:
   - <ruleset-name>
 ```
 
-#### Example for Python
+### Example for Python
 
-You can see an example for repositories based on Python:
+You can see an example for Python-based repositories:
 
 ```yaml
 rulesets:
@@ -25,9 +27,9 @@ rulesets:
 
 ## Workflow
 
-Create a file in `.github/workflows` to run a Datadog static analysis.
+Create a file in `.github/workflows` to run a Datadog Static Analysis test.
 
-Here's a sample workflow file.
+The following is a sample workflow file.
 
 ```yaml
 on: [push]
@@ -49,17 +51,27 @@ jobs:
         dd_env: "ci"
 ```
 
-> You **must** set your Datadog API and Application Keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1]
+You **must** set your Datadog API and Application Keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
 
 ## Inputs
+
+You can set the following parameters for Static Analysis.
 
 | Name         | Description                                                                                                                | Required | Default         |
 |--------------|----------------------------------------------------------------------------------------------------------------------------|----------|-----------------|
 | `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2].         | True     |                 |
-| `dd_app_key` | Your Datadog Application key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2]. | True     |                 |
+| `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2]. | True     |                 |
 | `dd_service` | The service you want your results tagged with.                                                                             | True     |                 |
 | `dd_env`     | The environment you want your results tagged with.                                                                         | False    | `none`          |
-| `dd_site`    | The [Datadog site](https://docs.datadoghq.com/getting_started/site/)                                                       | False    | `datadoghq.com` |
+| `dd_site`    | The [Datadog site][3] to send information to.                                                                              | False    | `datadoghq.com` |
+
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Static Analysis Configuration][4]
 
 [1]: https://docs.datadoghq.com/account_management/api-app-keys/
 [2]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
+[3]: https://docs.datadoghq.com/getting_started/site/
+[4]: https://docs.datadoghq.com/continuous_integration/static_analysis/configuration/
