@@ -1,0 +1,5 @@
+Component,Origin,License,Copyright
+@datadog/datadog-ci,core,Apache-2.0,"Copyright 2019-Present Datadog, Inc."
+@nodejs/node,core,MIT,"Copyright OpenJS Foundation and Node.js contributors"
+unzip,core,BSD-3-Clause,"Copyright (c) 1990-2009 Info-ZIP. All rights reserved"
+util-linux,core,GPL-2.0,"The Authors: https://github.com/util-linux/util-linux/blob/master/AUTHORS"
