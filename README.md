@@ -20,9 +20,9 @@ You can see an example for Python-based repositories:
 
 ```yaml
 rulesets:
-  - python-security
   - python-code-style
   - python-best-practices
+  - python-inclusive
 ```
 
 ## Workflow
