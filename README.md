@@ -63,7 +63,7 @@ You can set the following parameters for Static Analysis.
 | `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2]. | True     |                 |
 | `dd_service` | The service you want your results tagged with.                                                                             | True     |                 |
 | `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.              | False    | `none`          |
-| `dd_site`    | The [Datadog site][3] to send information to. You are currently viewing the documentation for the {{< region-param key="dd_site_name" code="true" >}} site, for which the correct value for this input would be {{< region-param key="dd_site" code="true" >}}                                                                          | False    | `datadoghq.com` |
+| `dd_site`    | The [Datadog site][3] to send information to. Your Datadog site is: {{< region-param key="dd_site" code="true" >}}.                                                                          | False    | {{< region-param key="dd_site" code="true" >}}   |
 
 ## Further Reading
 
