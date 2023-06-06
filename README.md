@@ -2,7 +2,7 @@
 
 ## Overview
 
-Run a Datadog Static Analysis test in your Github Action workflows.
+Run a Datadog Static Analysis job in your Github Action workflows.
 
 ## Setup
 
@@ -20,14 +20,14 @@ You can see an example for Python-based repositories:
 
 ```yaml
 rulesets:
-  - python-security
   - python-code-style
   - python-best-practices
+  - python-inclusive
 ```
 
 ## Workflow
 
-Create a file in `.github/workflows` to run a Datadog Static Analysis test.
+Create a file in `.github/workflows` to run a Datadog Static Analysis job.
 
 The following is a sample workflow file.
 
@@ -59,11 +59,11 @@ You can set the following parameters for Static Analysis.
 
 | Name         | Description                                                                                                                | Required | Default         |
 |--------------|----------------------------------------------------------------------------------------------------------------------------|----------|-----------------|
-| `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2].         | True     |                 |
-| `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2]. | True     |                 |
-| `dd_service` | The service you want your results tagged with.                                                                             | True     |                 |
-| `dd_env`     | The environment you want your results tagged with.                                                                         | False    | `none`          |
-| `dd_site`    | The [Datadog site][3] to send information to.                                                                              | False    | `datadoghq.com` |
+| `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2].         | Yes     |                 |
+| `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2]. | Yes     |                 |
+| `dd_service` | The service you want your results tagged with.                                                                             | Yes     |                 |
+| `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.              | No    | `none`          |
+| `dd_site`    | The [Datadog site][3] to send information to. Your Datadog site is: {{< region-param key="dd_site" code="true" >}}.                                                                          | No    | {{< region-param key="dd_site" code="true" >}}   |
 
 ## Further Reading
 
