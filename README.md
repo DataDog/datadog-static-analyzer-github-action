@@ -36,19 +36,19 @@ on: [push]
 
 jobs:
   check-quality:
-  runs-on: ubuntu-latest
-  name: Datadog Static Analyzer
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Check code meets quality standards
-      id: datadog-static-analysis
-      uses: DataDog/datadog-static-analyzer-github-action@v1.0.0
-      with:
-        dd_app_key: ${{ secrets.DD_APP_KEY }}
-        dd_api_key: ${{ secrets.DD_API_KEY }}
-        dd_service: "my-service"
-        dd_env: "ci"
+    runs-on: ubuntu-latest
+    name: Datadog Static Analyzer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check code meets quality standards
+        id: datadog-static-analysis
+        uses: DataDog/datadog-static-analyzer-github-action@v1.0.0
+        with:
+          dd_app_key: ${{ secrets.DD_APP_KEY }}
+          dd_api_key: ${{ secrets.DD_API_KEY }}
+          dd_service: "my-service"
+          dd_env: "ci"
 ```
 
 You **must** set your Datadog API and Application Keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
