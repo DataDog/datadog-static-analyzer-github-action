@@ -2,7 +2,7 @@
 
 ## Overview
 
-Run a Datadog Static Analysis job in your Github Action workflows.
+Run a Datadog Static Analysis job in your GitHub Action workflows.
 
 ## Setup
 
@@ -51,7 +51,7 @@ jobs:
           dd_env: "ci"
 ```
 
-You **must** set your Datadog API and Application Keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
+You **must** set your Datadog API and application keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
 
 ## Inputs
 
@@ -65,13 +65,6 @@ You can set the following parameters for Static Analysis.
 | `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.              | No    | `none`          |
 | `dd_site`    | The [Datadog site][3] to send information to.                                                                          | No    | `datadoghq.com`   |
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [Static Analysis Configuration][4]
-
 [1]: https://docs.datadoghq.com/account_management/api-app-keys/
 [2]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
 [3]: https://docs.datadoghq.com/getting_started/site/
-[4]: https://docs.datadoghq.com/continuous_integration/static_analysis/configuration/
