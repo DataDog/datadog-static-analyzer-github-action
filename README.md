@@ -45,7 +45,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Check code meets quality standards
         id: datadog-static-analysis
-        uses: DataDog/datadog-static-analyzer-github-action@v1.0.0
+        uses: DataDog/datadog-static-analyzer-github-action@v1
         with:
           dd_app_key: ${{ secrets.DD_APP_KEY }}
           dd_api_key: ${{ secrets.DD_API_KEY }}
