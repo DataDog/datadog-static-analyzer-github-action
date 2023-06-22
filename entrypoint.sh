@@ -115,7 +115,7 @@ $CLI_LOCATION --directory "${GITHUB_WORKSPACE}" -t true -o "$OUTPUT_FILE" -f sar
 echo "Done"
 
 # navigate to workspace root, so the datadog-ci command can access the git info
-cd ${GITHUB_WORKSPACE}
+cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE}
 
 echo "Uploading results to Datadog"
