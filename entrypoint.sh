@@ -78,7 +78,7 @@ CLI_LOCATION=$TOOL_DIRECTORY/cli-1.0-SNAPSHOT/bin/cli
 # datadog-ci stuff
 ########################################################
 echo "Installing 'datadog-ci'"
-npm install -g @datadog/datadog-ci || exit 1
+npm install -g @datadog/datadog-ci@2.16.1 || exit 1
 
 DATADOG_CLI_PATH=/usr/bin/datadog-ci
 
@@ -89,6 +89,7 @@ if [ ! -x $DATADOG_CLI_PATH ]; then
 fi
 
 echo "Done: datadog-ci available $DATADOG_CLI_PATH"
+echo "Version: $($DATADOG_CLI_PATH version)"
 
 ########################################################
 # output directory
@@ -119,5 +120,5 @@ cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
 echo "Uploading results to Datadog"
-${DATADOG_CLI_PATH} sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$DD_ENV"
+${DATADOG_CLI_PATH} sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$DD_ENV" || exit 1
 echo "Done"
