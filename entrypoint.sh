@@ -78,7 +78,7 @@ CLI_LOCATION=$TOOL_DIRECTORY/cli-1.0-SNAPSHOT/bin/cli
 # datadog-ci stuff
 ########################################################
 echo "Installing 'datadog-ci'"
-npm install -g @datadog/datadog-ci || exit 1
+npm install -g @datadog/datadog-ci@2.16.1 || exit 1
 
 DATADOG_CLI_PATH=/usr/bin/datadog-ci
 
@@ -89,6 +89,7 @@ if [ ! -x $DATADOG_CLI_PATH ]; then
 fi
 
 echo "Done: datadog-ci available $DATADOG_CLI_PATH"
+echo "Version: $($DATADOG_CLI_PATH version)"
 
 ########################################################
 # output directory
