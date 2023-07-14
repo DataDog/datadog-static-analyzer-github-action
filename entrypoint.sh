@@ -69,10 +69,9 @@ if [ ! -d "$TOOL_DIRECTORY" ]; then
 fi
 
 cd "$TOOL_DIRECTORY" || exit 1
-curl -L -O http://dtdg.co/latest-static-analyzer >/dev/null 2>&1 || exit 1
-unzip latest-static-analyzer > /dev/null 2>&1 || exit 1
-CLI_LOCATION=$TOOL_DIRECTORY/cli-1.0-SNAPSHOT/bin/cli
-
+curl -L -o datadog-static-analyzer.zip https://github.com/DataDog/datadog-static-analyzer/releases/latest/download/datadog-static-analyzer-x86_64-unknown-linux-gnu.zip >/dev/null 2>&1 || exit 1
+unzip datadog-static-analyzer >/dev/null 2>&1 || exit 1
+CLI_LOCATION=$TOOL_DIRECTORY/datadog-static-analyzer
 
 ########################################################
 # datadog-ci stuff
@@ -112,7 +111,7 @@ echo "Done: will output results at $OUTPUT_FILE"
 ########################################################
 
 echo "Starting a static analysis"
-$CLI_LOCATION --directory "${GITHUB_WORKSPACE}" -t true -o "$OUTPUT_FILE" -f sarif || exit 1
+$CLI_LOCATION -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif || exit 1
 echo "Done"
 
 # navigate to workspace root, so the datadog-ci command can access the git info
