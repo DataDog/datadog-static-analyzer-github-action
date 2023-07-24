@@ -59,8 +59,8 @@ if [ -z "$DD_SERVICE" ]; then
 fi
 
 if [ -z "$CPU_COUNT" ]; then
-    echo "CPU_COUNT not set. Please set this variable and try again."
-    exit 1
+    # the default CPU count is 2
+    CPU_COUNT = 2
 fi
 
 if [[ "$ENABLE_PERFORMANCE_STATISTICS" == "true" ]]; then
