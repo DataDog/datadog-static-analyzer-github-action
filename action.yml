@@ -22,6 +22,14 @@ inputs:
     description: "The Datadog site. For example, users in the EU may want to set datadoghq.eu."
     required: false
     default: "datadoghq.com"
+  cpu_count:
+    description: "Set the number of CPUs used to by the analyzer."
+    required: false
+    default: "2"
+  enable_performance_statistics:
+    description: "Get the execution time statistics for analyzed files."
+    required: false
+    default: "false"
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -31,3 +39,5 @@ runs:
     DD_SERVICE: ${{ inputs.dd_service }}
     DD_ENV: ${{ inputs.dd_env }}
     DD_SITE: ${{ inputs.dd_site }}
+    CPU_COUNT: ${{ inputs.cpu_count }}
+    ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
