@@ -51,8 +51,8 @@ jobs:
           dd_api_key: ${{ secrets.DD_API_KEY }}
           dd_service: "my-service"
           dd_env: "ci"
-          cpu_count: "2"
-          enable_performance_statistics: "false"
+          cpu_count: 2
+          enable_performance_statistics: false
 ```
 
 You **must** set your Datadog API and application keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
