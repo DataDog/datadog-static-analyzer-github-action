@@ -60,7 +60,7 @@ fi
 
 if [ -z "$CPU_COUNT" ]; then
     # the default CPU count is 2
-    CPU_COUNT = 2
+    CPU_COUNT=2
 fi
 
 if [ "$ENABLE_PERFORMANCE_STATISTICS" = "true" ]; then
