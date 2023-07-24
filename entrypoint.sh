@@ -63,10 +63,10 @@ if [ -z "$CPU_COUNT" ]; then
     CPU_COUNT = 2
 fi
 
-if [[ "$ENABLE_PERFORMANCE_STATISTICS" == "true" ]]; then
-    ENABLE_PERFORMANCE_STATISTICS = "--performance-statistics"
+if [ "$ENABLE_PERFORMANCE_STATISTICS" = "true" ]; then
+    ENABLE_PERFORMANCE_STATISTICS="--performance-statistics"
 else 
-    ENABLE_PERFORMANCE_STATISTICS = ""
+    ENABLE_PERFORMANCE_STATISTICS=""
 fi
 
 ########################################################
