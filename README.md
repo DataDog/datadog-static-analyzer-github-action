@@ -51,6 +51,8 @@ jobs:
           dd_api_key: ${{ secrets.DD_API_KEY }}
           dd_service: "my-service"
           dd_env: "ci"
+          cpu_count: "2"
+          enable_performance_statistics: "false"
 ```
 
 You **must** set your Datadog API and application keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
@@ -66,6 +68,8 @@ You can set the following parameters for Static Analysis.
 | `dd_service` | The service you want your results tagged with.                                                                             | Yes     |                 |
 | `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.              | No      | `none`          |
 | `dd_site`    | The [Datadog site][3] to send information to.                                                                              | No      | `datadoghq.com` |
+| `cpu_count`  | Set the number of CPUs used to by the analyzer.                                                                            | No      | `2`             |
+| `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                   | No      | `false`         |
 
 [1]: https://docs.datadoghq.com/account_management/api-app-keys/
 [2]: https://docs.github.com/en/actions/security-guides/encrypted-secrets

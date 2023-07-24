@@ -58,6 +58,17 @@ if [ -z "$DD_SERVICE" ]; then
     exit 1
 fi
 
+if [ -z "$CPU_COUNT" ]; then
+    echo "CPU_COUNT not set. Please set this variable and try again."
+    exit 1
+fi
+
+if [[ "$ENABLE_PERFORMANCE_STATISTICS" == "true" ]]; then
+    ENABLE_PERFORMANCE_STATISTICS = "--performance-statistics"
+else 
+    ENABLE_PERFORMANCE_STATISTICS = ""
+fi
+
 ########################################################
 # static analyzer tool stuff
 ########################################################
@@ -111,7 +122,7 @@ echo "Done: will output results at $OUTPUT_FILE"
 ########################################################
 
 echo "Starting a static analysis"
-$CLI_LOCATION -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif || exit 1
+$CLI_LOCATION -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" || exit 1
 echo "Done"
 
 # navigate to workspace root, so the datadog-ci command can access the git info
