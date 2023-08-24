@@ -69,6 +69,13 @@ else
     ENABLE_PERFORMANCE_STATISTICS=""
 fi
 
+if [ "$ENABLE_DEBUG" = "yes" ]; then
+    ENABLE_DEBUG="--debug yes"
+else 
+    ENABLE_DEBUG=""
+fi
+
+
 ########################################################
 # static analyzer tool stuff
 ########################################################
@@ -122,7 +129,7 @@ echo "Done: will output results at $OUTPUT_FILE"
 ########################################################
 
 echo "Starting a static analysis"
-$CLI_LOCATION -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" || exit 1
+$CLI_LOCATION -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" "$ENABLE_DEBUG" || exit 1
 echo "Done"
 
 # navigate to workspace root, so the datadog-ci command can access the git info

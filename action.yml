@@ -30,6 +30,10 @@ inputs:
     description: "Get the execution time statistics for analyzed files."
     required: false
     default: "false"
+  debug:
+    description: "Lets the analyzer print additional logs useful for debugging."
+    required: false
+    default: "no"
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -41,3 +45,4 @@ runs:
     DD_SITE: ${{ inputs.dd_site }}
     CPU_COUNT: ${{ inputs.cpu_count }}
     ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
+    ENABLE_DEBUG: ${{ inputs.debug }}
