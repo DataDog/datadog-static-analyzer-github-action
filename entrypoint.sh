@@ -121,13 +121,13 @@ echo "Done: will output results at $OUTPUT_FILE"
 # execute the tool and upload results
 ########################################################
 
-echo "Starting a static analysis"
-$CLI_LOCATION -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" || exit 1
-echo "Done"
-
 # navigate to workspace root, so the datadog-ci command can access the git info
 cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
+
+echo "Starting a static analysis"
+$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" || exit 1
+echo "Done"
 
 echo "Uploading results to Datadog"
 ${DATADOG_CLI_PATH} sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$DD_ENV" || exit 1
