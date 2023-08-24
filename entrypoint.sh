@@ -129,9 +129,6 @@ echo "Starting a static analysis"
 $CLI_LOCATION -g -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" || exit 1
 echo "Done"
 
-// TODO: remove me
-cat "$OUTPUT_FILE"
-
 echo "Uploading results to Datadog"
 ${DATADOG_CLI_PATH} sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$DD_ENV" || exit 1
 echo "Done"
