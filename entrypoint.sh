@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/bin/sh -l
 
 cat << EOF
 ################################################################################
@@ -58,23 +58,21 @@ if [ -z "$DD_SERVICE" ]; then
     exit 1
 fi
 
-########################################################
-# additional options for the analyzer
-########################################################
-ADDITIONAL_ANALYZER_OPTS=()
-
 if [ -z "$CPU_COUNT" ]; then
-    ADDITIONAL_ANALYZER_OPTS+=(--cpus 2) # default is 2
-else 
-    ADDITIONAL_ANALYZER_OPTS+=(--cpus $CPU_COUNT)
+    # the default CPU count is 2
+    CPU_COUNT=2
 fi
 
 if [ "$ENABLE_PERFORMANCE_STATISTICS" = "true" ]; then
-    ADDITIONAL_ANALYZER_OPTS+=(--performance-statistics)
+    ENABLE_PERFORMANCE_STATISTICS="--performance-statistics"
+else 
+    ENABLE_PERFORMANCE_STATISTICS=""
 fi
 
 if [ "$ENABLE_DEBUG" = "yes" ]; then
-    ADDITIONAL_ANALYZER_OPTS+=(--debug yes)
+    DEBUG_ARGUMENT_VALUE="yes"
+else
+    DEBUG_ARGUMENT_VALUE="no"
 fi
 
 ########################################################
@@ -134,7 +132,7 @@ cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
 echo "Starting a static analysis"
-$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif "${ADDITIONAL_ANALYZER_OPTS[@]}" || exit 1
+$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE || exit 1
 echo "Done"
 
 echo "Uploading results to Datadog"
