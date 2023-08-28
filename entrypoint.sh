@@ -69,6 +69,12 @@ else
     ENABLE_PERFORMANCE_STATISTICS=""
 fi
 
+if [ "$ENABLE_DEBUG" = "yes" ]; then
+    DEBUG_ARGUMENT_VALUE="yes"
+else
+    DEBUG_ARGUMENT_VALUE="no"
+fi
+
 ########################################################
 # static analyzer tool stuff
 ########################################################
@@ -126,7 +132,7 @@ cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
 echo "Starting a static analysis"
-$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" || exit 1
+$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE || exit 1
 echo "Done"
 
 echo "Uploading results to Datadog"
