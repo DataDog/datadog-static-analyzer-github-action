@@ -3,13 +3,16 @@ FROM ubuntu:22.04
 
 # Install dependencies
 RUN apt-get update
-RUN apt-get install -y git unzip curl
+RUN apt-get install -y git unzip curl ca-certificates gnupg
 
 # Install node 16
-RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
-RUN chmod a+x ./nodesource_setup.sh
-RUN ./nodesource_setup.sh
-RUN apt-get install -y nodejs
+RUN apt-get update
+RUN apt-get install -y ca-certificates curl gnupg
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+ENV NODE_MAJOR=16
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN apt-get update
+RUN apt-get install nodejs -y
 
 # Copy files from our repository location to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
