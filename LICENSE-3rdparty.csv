@@ -4,3 +4,5 @@ Component,Origin,License,Copyright
 unzip,core,BSD-3-Clause,"Copyright (c) 1990-2009 Info-ZIP. All rights reserved"
 util-linux,core,GPL-2.0,"The Authors: https://github.com/util-linux/util-linux/blob/master/AUTHORS"
 git,https://github.com/git/git,GPL-2.0,© 2005-2023, Linus Torvalds and others.
+ca-certificate,core,GPL-2+,"Various Debian Contributors"
+gnupg,core,GPL-3+,"1992, 1995-2020, Free Software Foundation, Inc"
