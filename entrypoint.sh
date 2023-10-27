@@ -132,7 +132,7 @@ cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
 echo "Starting a static analysis"
-$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE || exit 1
+$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}/${SUBDIRECTORY}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE || exit 1
 echo "Done"
 
 echo "Uploading results to Datadog"
