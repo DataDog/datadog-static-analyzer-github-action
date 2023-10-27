@@ -58,6 +58,13 @@ if [ -z "$DD_SERVICE" ]; then
     exit 1
 fi
 
+# if a subdirectory is set, then we need to disable the addition of git information
+if [ -n "$SUBDIRECTORY" ]; then 
+    GIT_INFO_FLAG="-g";
+else 
+    GIT_INFO_FLAG="";  
+fi
+
 if [ -z "$CPU_COUNT" ]; then
     # the default CPU count is 2
     CPU_COUNT=2
@@ -132,7 +139,7 @@ cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
 echo "Starting a static analysis"
-$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}/${SUBDIRECTORY}" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE || exit 1
+$CLI_LOCATION -g -i "${GITHUB_WORKSPACE}/${SUBDIRECTORY}" "$GIT_INFO_FLAG" -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE || exit 1
 echo "Done"
 
 echo "Uploading results to Datadog"
