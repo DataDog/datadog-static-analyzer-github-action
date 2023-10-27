@@ -59,7 +59,7 @@ if [ -z "$DD_SERVICE" ]; then
 fi
 
 # if a subdirectory is set, then we need to disable the addition of git information
-if [ -n "$SUBDIRECTORY" ]; then 
+if [ -z "$SUBDIRECTORY" ]; then 
     GIT_INFO_FLAG="-g";
 else 
     GIT_INFO_FLAG="";  
