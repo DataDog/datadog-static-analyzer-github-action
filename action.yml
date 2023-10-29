@@ -35,7 +35,7 @@ inputs:
     required: false
     default: "no"
   subdirectory:
-    description: "A subdirectory path to run an analysis from."
+    description: "The subdirectory path the analysis should be limited to."
     required: false
     default: ""
 runs:
