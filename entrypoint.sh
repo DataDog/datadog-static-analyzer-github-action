@@ -94,7 +94,7 @@ CLI_LOCATION=$TOOL_DIRECTORY/datadog-static-analyzer
 # datadog-ci stuff
 ########################################################
 echo "Installing 'datadog-ci'"
-npm install -g @datadog/datadog-ci@2.16.1 || exit 1
+npm install -g @datadog/datadog-ci || exit 1
 
 DATADOG_CLI_PATH=/usr/bin/datadog-ci
 
