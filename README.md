@@ -71,7 +71,7 @@ You can set the following parameters for Static Analysis.
 | `cpu_count`  | Set the number of CPUs used to by the analyzer.                                                                            | No      | `2`             |
 | `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                   | No      | `false`         |
 | `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                     | No      | `no`            |
-| `subdirectory` | A subdirectory path to run an analysis in. The path is relative to the root directory of your repository.                | No      |                 |
+| `subdirectory` | The subdirectory path the analysis should be limited to. The path is relative to the root directory of the repository.   | No      |                 |
 
 [1]: https://docs.datadoghq.com/account_management/api-app-keys/
 [2]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
