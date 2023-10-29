@@ -76,9 +76,9 @@ else
 fi
 
 if [ -z "$SUBDIRECTORY" ]; then 
-    SUBDIRECTORY_OPTION="--subdirectory ${SUBDIRECTORY}"
-else 
     SUBDIRECTORY_OPTION=""
+else
+    SUBDIRECTORY_OPTION="--subdirectory ${SUBDIRECTORY}"
 fi
 
 ########################################################
