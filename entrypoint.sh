@@ -159,6 +159,7 @@ if [ "${SCA_ENABLED}" = "true" ] || [ "${SCA_ENABLED}" = "yes" ]; then
     echo "Done"
   else
     echo "SBOM not generated, not uploading"
+    exit 1
   fi
   echo "Done"
 else
