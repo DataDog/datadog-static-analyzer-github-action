@@ -148,7 +148,6 @@ echo "Done"
 ########################################################
 # SCA
 ########################################################
-
 if [ "${SCA_ENABLED}" = "true" ] || [ "${SCA_ENABLED}" = "yes" ]; then
   SCA_OUTPUT_FILE="$OUTPUT_DIRECTORY/trivy.json"
   echo "Generating SBOM"
@@ -157,4 +156,6 @@ if [ "${SCA_ENABLED}" = "true" ] || [ "${SCA_ENABLED}" = "yes" ]; then
   echo "Uploading results to Datadog"
   DD_BETA_COMMANDS_ENABLED=1 ${DATADOG_CLI_PATH} sbom upload --service "$DD_SERVICE" --env "$DD_ENV" "${SCA_OUTPUT_FILE}" || exit 1
   echo "Done"
+else
+  echo "SCA not enabled (sca_enabled value ${SCA_ENABLED}), skipping"
 fi
