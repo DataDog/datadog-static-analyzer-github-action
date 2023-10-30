@@ -34,6 +34,10 @@ inputs:
     description: "Lets the analyzer print additional logs useful for debugging."
     required: false
     default: "no"
+  sca_enabled:
+    description: "Enable Software Composition Analysis (SCA)"
+    required: false
+    default: "false"
   subdirectory:
     description: "The subdirectory path the analysis should be limited to."
     required: false
