@@ -6,3 +6,4 @@ util-linux,core,GPL-2.0,"The Authors: https://github.com/util-linux/util-linux/b
 git,https://github.com/git/git,GPL-2.0,© 2005-2023, Linus Torvalds and others.
 ca-certificate,core,GPL-2+,"Various Debian Contributors"
 gnupg,core,GPL-3+,"1992, 1995-2020, Free Software Foundation, Inc"
+trivy,https://github.com/aquasecurity/trivy,Apache-2.0,"Copyright (c) 2019 Aqua Security Limited"

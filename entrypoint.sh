@@ -65,7 +65,7 @@ fi
 
 if [ "$ENABLE_PERFORMANCE_STATISTICS" = "true" ]; then
     ENABLE_PERFORMANCE_STATISTICS="--performance-statistics"
-else 
+else
     ENABLE_PERFORMANCE_STATISTICS=""
 fi
 
@@ -75,7 +75,7 @@ else
     DEBUG_ARGUMENT_VALUE="no"
 fi
 
-if [ -z "$SUBDIRECTORY" ]; then 
+if [ -z "$SUBDIRECTORY" ]; then
     SUBDIRECTORY_OPTION=""
 else
     SUBDIRECTORY_OPTION="--subdirectory ${SUBDIRECTORY}"
@@ -137,10 +137,31 @@ echo "Done: will output results at $OUTPUT_FILE"
 cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
-echo "Starting a static analysis"
+echo "Starting Static Analysis"
 $CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION|| exit 1
 echo "Done"
 
-echo "Uploading results to Datadog"
+echo "Uploading Static Analysis Results to Datadog"
 ${DATADOG_CLI_PATH} sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$DD_ENV" || exit 1
 echo "Done"
+
+########################################################
+# SCA/SBOM
+########################################################
+if [ "${SCA_ENABLED}" = "true" ] || [ "${SCA_ENABLED}" = "yes" ]; then
+  SCA_OUTPUT_FILE="$OUTPUT_DIRECTORY/trivy.json"
+  echo "Generating SBOM"
+  trivy fs --output "${SCA_OUTPUT_FILE}" --format cyclonedx . > /dev/null 2>&1
+
+  if [ -f "${SCA_OUTPUT_FILE}" ]; then
+    echo "Uploading SBOM to Datadog"
+    DD_BETA_COMMANDS_ENABLED=1 ${DATADOG_CLI_PATH} sbom upload --service "$DD_SERVICE" --env "$DD_ENV" "${SCA_OUTPUT_FILE}" || exit 1
+    echo "Done"
+  else
+    echo "SBOM not generated, not uploading"
+    exit 1
+  fi
+  echo "Done"
+else
+  echo "SCA not enabled (sca_enabled value ${SCA_ENABLED}), skipping"
+fi
