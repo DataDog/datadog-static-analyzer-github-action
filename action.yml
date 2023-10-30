@@ -55,3 +55,4 @@ runs:
     ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
     ENABLE_DEBUG: ${{ inputs.debug }}
     SUBDIRECTORY: ${{ inputs.subdirectory }}
+    SCA_ENABLED: ${{ inputs.sca_enabled }}
