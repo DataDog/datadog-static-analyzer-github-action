@@ -146,7 +146,7 @@ ${DATADOG_CLI_PATH} sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$
 echo "Done"
 
 ########################################################
-# SCA
+# SCA/SBOM
 ########################################################
 if [ "${SCA_ENABLED}" = "true" ] || [ "${SCA_ENABLED}" = "yes" ]; then
   SCA_OUTPUT_FILE="$OUTPUT_DIRECTORY/trivy.json"
