@@ -55,7 +55,7 @@ jobs:
           enable_performance_statistics: false
 ```
 
-You **must** set your Datadog API and application keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
+You **must** set your Datadog API and application keys as secrets in GitHub, whether at the Organization level or the Repository level. For more information, see [API and Application Keys][1].
 
 ## Inputs
 
