@@ -2,9 +2,7 @@
 
 ## Overview
 
-Run a Datadog Static Analysis job in your GitHub Action workflows.
-
-Static Analysis is in private beta. To request access, [contact Support][4].
+Run a [Datadog Static Analysis][1] job in your GitHub Action workflows.
 
 ## Setup
 
@@ -51,11 +49,12 @@ jobs:
           dd_api_key: ${{ secrets.DD_API_KEY }}
           dd_service: "my-service"
           dd_env: "ci"
+          dd_site: datadoghq.com
           cpu_count: 2
           enable_performance_statistics: false
 ```
 
-You **must** set your Datadog API and application keys as secrets in your GitHub repository. For more information, see [API and Application Keys][1].
+You **must** set your Datadog API and application keys as [secrets in your GitHub repository][4]. For more information, see [API and Application Keys][2].
 
 ## Inputs
 
@@ -63,8 +62,8 @@ You can set the following parameters for Static Analysis.
 
 | Name         | Description                                                                                                                | Required | Default         |
 |--------------|----------------------------------------------------------------------------------------------------------------------------|----------|-----------------|
-| `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2].         | Yes     |                 |
-| `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][1] and should be stored as a [secret][2]. | Yes     |                 |
+| `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][2] and should be stored as a [secret][2].         | Yes     |                 |
+| `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][2] and should be stored as a [secret][4]. | Yes     |                 |
 | `dd_service` | The service you want your results tagged with.                                                                             | Yes     |                 |
 | `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.              | No      | `none`          |
 | `dd_site`    | The [Datadog site][3] to send information to.                                                                              | No      | `datadoghq.com` |
@@ -73,7 +72,13 @@ You can set the following parameters for Static Analysis.
 | `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                     | No      | `no`            |
 | `subdirectory` | The subdirectory path the analysis should be limited to. The path is relative to the root directory of the repository.   | No      |                 |
 
-[1]: https://docs.datadoghq.com/account_management/api-app-keys/
-[2]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Learn about Code Analysis][1]
+
+[1]: https://docs.datadoghq.com/code_analysis/static_analysis
+[2]: https://docs.datadoghq.com/account_management/api-app-keys/
 [3]: https://docs.datadoghq.com/getting_started/site/
-[4]: https://docs.datadoghq.com/help/
+[4]: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository
