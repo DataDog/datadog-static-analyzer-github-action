@@ -49,7 +49,7 @@ jobs:
           dd_api_key: ${{ secrets.DD_API_KEY }}
           dd_service: "my-service"
           dd_env: "ci"
-          dd_site: datadoghq.com
+          dd_site: {{< region-param key="dd_site" code="true" >}}
           cpu_count: 2
           enable_performance_statistics: false
 ```
