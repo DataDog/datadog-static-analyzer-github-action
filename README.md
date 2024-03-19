@@ -71,6 +71,7 @@ You can set the following parameters for Static Analysis.
 | `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                   | No      | `false`         |
 | `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                     | No      | `no`            |
 | `subdirectory` | The subdirectory path the analysis should be limited to. The path is relative to the root directory of the repository.   | No      |                 |
+| `architecture` | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                                 | No      | `x86_64`        |
 
 ## Further Reading
 

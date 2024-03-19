@@ -81,6 +81,12 @@ else
     SUBDIRECTORY_OPTION="--subdirectory ${SUBDIRECTORY}"
 fi
 
+# verify ARCHITECTURE is x86_64 or aarch64
+if [ "$ARCHITECTURE" != "x86_64" ] && [ "$ARCHITECTURE" != "aarch64" ]; then
+    echo "ARCHITECTURE must be x86_64 or aarch64"
+    exit 1
+fi
+
 ########################################################
 # static analyzer tool stuff
 ########################################################
@@ -92,7 +98,7 @@ if [ ! -d "$TOOL_DIRECTORY" ]; then
 fi
 
 cd "$TOOL_DIRECTORY" || exit 1
-curl -L -o datadog-static-analyzer.zip https://github.com/DataDog/datadog-static-analyzer/releases/latest/download/datadog-static-analyzer-x86_64-unknown-linux-gnu.zip >/dev/null 2>&1 || exit 1
+curl -L -o datadog-static-analyzer.zip https://github.com/DataDog/datadog-static-analyzer/releases/latest/download/datadog-static-analyzer-$ARCHITECTURE-unknown-linux-gnu.zip >/dev/null 2>&1 || exit 1
 unzip datadog-static-analyzer >/dev/null 2>&1 || exit 1
 CLI_LOCATION=$TOOL_DIRECTORY/datadog-static-analyzer
 

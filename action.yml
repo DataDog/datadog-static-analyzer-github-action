@@ -42,6 +42,10 @@ inputs:
     description: "The subdirectory path the analysis should be limited to."
     required: false
     default: ""
+  architecture:
+    description: "The architecture of the image to use. Can be x86_64 or aarch64."
+    required: false
+    default: "x86_64"
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -56,3 +60,4 @@ runs:
     ENABLE_DEBUG: ${{ inputs.debug }}
     SUBDIRECTORY: ${{ inputs.subdirectory }}
     SCA_ENABLED: ${{ inputs.sca_enabled }}
+    ARCHITECTURE: ${{ inputs.architecture }}
