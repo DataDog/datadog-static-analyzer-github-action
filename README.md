@@ -40,7 +40,7 @@ jobs:
     name: Datadog Static Analyzer
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check code meets quality standards
         id: datadog-static-analysis
         uses: DataDog/datadog-static-analyzer-github-action@v1
