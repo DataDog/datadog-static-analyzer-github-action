@@ -71,7 +71,8 @@ You can set the following parameters for Static Analysis.
 | `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                   | No      | `false`         |
 | `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                     | No      | `no`            |
 | `subdirectory` | The subdirectory path the analysis should be limited to. The path is relative to the root directory of the repository.   | No      |                 |
-| `architecture` | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                                 | No      | `x86_64`        |
+| `architecture` | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                               | No      | `x86_64`        |
+| `diff_aware` | Enable [diff-aware scanning mode][5].                                                                                      | No      | `false`         |
 
 ## Further Reading
 
@@ -83,3 +84,4 @@ Additional helpful documentation, links, and articles:
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/
 [3]: https://docs.datadoghq.com/getting_started/site/
 [4]: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository
+[5]: https://github.com/DataDog/datadog-static-analyzer/blob/main/README.md#diff-aware-scanning
