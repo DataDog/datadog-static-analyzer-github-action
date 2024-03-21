@@ -149,6 +149,10 @@ echo "Done: will output results at $OUTPUT_FILE"
 cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
+echo "Upload git metadata"
+${DATADOG_CLI_PATH} git-metadata upload || exit 1
+echo "Done"
+
 echo "Starting Static Analysis"
 $CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE|| exit 1
 echo "Done"
