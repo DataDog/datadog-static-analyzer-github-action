@@ -81,6 +81,12 @@ else
     SUBDIRECTORY_OPTION="--subdirectory ${SUBDIRECTORY}"
 fi
 
+if [ "$DIFF_AWARE" = "true" ]; then
+    DIFF_AWARE_VALUE="--diff-aware"
+else
+    DIFF_AWARE_VALUE=""
+fi
+
 # verify ARCHITECTURE is x86_64 or aarch64
 if [ "$ARCHITECTURE" != "x86_64" ] && [ "$ARCHITECTURE" != "aarch64" ]; then
     echo "ARCHITECTURE must be x86_64 or aarch64"
@@ -143,8 +149,15 @@ echo "Done: will output results at $OUTPUT_FILE"
 cd ${GITHUB_WORKSPACE} || exit 1
 git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
+# Only upload git metadata if diff aware is enabled.
+if [ "$DIFF_AWARE" = "true" ]; then
+    echo "Upload git metadata"
+    ${DATADOG_CLI_PATH} git-metadata upload
+    echo "Done"
+fi
+
 echo "Starting Static Analysis"
-$CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION|| exit 1
+$CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE|| exit 1
 echo "Done"
 
 echo "Uploading Static Analysis Results to Datadog"

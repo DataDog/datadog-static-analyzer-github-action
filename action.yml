@@ -46,6 +46,10 @@ inputs:
     description: "The architecture of the image to use. Can be x86_64 or aarch64."
     required: false
     default: "x86_64"
+  diff_aware:
+    description: "Enable diff aware scanning mode."
+    required: false
+    default: "false"
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -61,3 +65,4 @@ runs:
     SUBDIRECTORY: ${{ inputs.subdirectory }}
     SCA_ENABLED: ${{ inputs.sca_enabled }}
     ARCHITECTURE: ${{ inputs.architecture }}
+    DIFF_AWARE: ${{ inputs.diff_aware }}
