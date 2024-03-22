@@ -152,7 +152,7 @@ git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 # Only upload git metadata if diff aware is enabled.
 if [ "$DIFF_AWARE" = "true" ]; then
     echo "Upload git metadata"
-    ${DATADOG_CLI_PATH} git-metadata upload || exit 1
+    ${DATADOG_CLI_PATH} git-metadata upload
     echo "Done"
 fi
 
