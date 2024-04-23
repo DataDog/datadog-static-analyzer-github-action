@@ -157,6 +157,10 @@ git config --global --add safe.directory ${GITHUB_WORKSPACE} || exit 1
 
 # Only upload git metadata if diff aware is enabled.
 if [ "$DIFF_AWARE" = "true" ]; then
+    echo "Disabling extensions.worktreeConfig"
+    git config --unset extensions.worktreeConfig
+    echo "Done"
+
     echo "Upload git metadata"
     ${DATADOG_CLI_PATH} git-metadata upload
     echo "Done"
