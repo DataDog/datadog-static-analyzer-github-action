@@ -13,7 +13,7 @@ git push --tags
 3. Replace the tag pointing to the major version using to the same commit than the `vX.Y.Z` tag.
 ```
 git tag --delete vX
-git push --delete vX
+git push --delete origin v1
 git tag vX 
 git push --tags
 ```
