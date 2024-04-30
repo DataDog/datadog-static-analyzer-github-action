@@ -30,10 +30,6 @@ inputs:
     description: "Get the execution time statistics for analyzed files."
     required: false
     default: "false"
-  enable_secrets:
-    description: "(Currently for internal use) Enable secrets scanning"
-    required: false
-    default: "false"
   debug:
     description: "Lets the analyzer print additional logs useful for debugging."
     required: false
@@ -66,7 +62,6 @@ runs:
     CPU_COUNT: ${{ inputs.cpu_count }}
     ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
     ENABLE_DEBUG: ${{ inputs.debug }}
-    ENABLE_SECRETS: ${{ inputs.enable_secrets }}
     SUBDIRECTORY: ${{ inputs.subdirectory }}
     SCA_ENABLED: ${{ inputs.sca_enabled }}
     ARCHITECTURE: ${{ inputs.architecture }}

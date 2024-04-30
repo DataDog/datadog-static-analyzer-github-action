@@ -75,12 +75,6 @@ else
     DEBUG_ARGUMENT_VALUE="no"
 fi
 
-if [ "$ENABLE_SECRETS" = "true" ]; then
-    ENABLE_SECRETS_FLAG="--test-secrets"
-else
-    ENABLE_SECRETS_FLAG=""
-fi
-
 if [ -z "$SUBDIRECTORY" ]; then
     SUBDIRECTORY_OPTION=""
 else
@@ -167,7 +161,7 @@ if [ "$DIFF_AWARE" = "true" ]; then
 fi
 
 echo "Starting Static Analysis"
-$CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" "$ENABLE_SECRETS_FLAG" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE|| exit 1
+$CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE|| exit 1
 echo "Done"
 
 echo "Uploading Static Analysis Results to Datadog"
