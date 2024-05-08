@@ -161,7 +161,7 @@ if [ "$DIFF_AWARE" = "true" ]; then
 fi
 
 echo "Starting Static Analysis"
-$CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE|| exit 1
+$CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE --include-testing-rules || exit 1
 echo "Done"
 
 echo "Uploading Static Analysis Results to Datadog"
