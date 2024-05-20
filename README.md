@@ -70,7 +70,7 @@ You can set the following parameters for Static Analysis.
 | `cpu_count`  | Set the number of CPUs used to by the analyzer.                                                                            | No      | `2`             |
 | `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                   | No      | `false`         |
 | `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                     | No      | `no`            |
-| `subdirectory` | The subdirectory path the analysis should be limited to. The path is relative to the root directory of the repository.   | No      |                 |
+| `subdirectories` | The subdirectory path pattern/glob the analysis should be limited to. For example: \"src packages\"                    | No      |                 |
 | `architecture` | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                               | No      | `x86_64`        |
 | `diff_aware` | Enable [diff-aware scanning mode][5].                                                                                      | No      | `false`         |
 
