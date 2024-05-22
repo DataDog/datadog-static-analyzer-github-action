@@ -2,7 +2,7 @@
 
 ## Overview
 
-Run a [Datadog Static Analysis][1] job in your GitHub Action workflows.
+Run a [Datadog Static Analysis][1] job in your GitHub Action workflows. 
 
 ## Setup
 
@@ -59,6 +59,8 @@ You **must** set your Datadog API and application keys as [secrets in your GitHu
 ## Inputs
 
 You can set the following parameters for Static Analysis.
+
+**Note:** Diff-Aware scanning only scans the files modified by a commit when analyzing feature branches. Diff-aware is enabled by default. If you want to disable diff-aware scanning, set the GitHub action diff_aware parameter to false.
 
 | Name         | Description                                                                                                                | Required | Default         |
 |--------------|----------------------------------------------------------------------------------------------------------------------------|----------|-----------------|
