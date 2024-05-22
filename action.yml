@@ -49,7 +49,7 @@ inputs:
   diff_aware:
     description: "Enable diff aware scanning mode."
     required: false
-    default: "false"
+    default: "true"
 runs:
   using: "docker"
   image: "Dockerfile"

@@ -72,7 +72,7 @@ You can set the following parameters for Static Analysis.
 | `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                     | No      | `no`            |
 | `subdirectory` | The subdirectory path the analysis should be limited to. The path is relative to the root directory of the repository.   | No      |                 |
 | `architecture` | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                               | No      | `x86_64`        |
-| `diff_aware` | Enable [diff-aware scanning mode][5].                                                                                      | No      | `false`         |
+| `diff_aware` | Enable [diff-aware scanning mode][5].                                                                                      | No      | `true`          |
 
 ## Further Reading
 
