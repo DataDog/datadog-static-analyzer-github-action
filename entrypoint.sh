@@ -40,8 +40,8 @@ else
     DEBUG_ARGUMENT_VALUE="no"
 fi
 
-if [ -n "$SUBDIRECTORIES" ]; then
-  for subdirectory in $SUBDIRECTORIES; do
+if [ -n "$SUBDIRECTORY" ]; then
+  for subdirectory in $SUBDIRECTORY; do
     SUBDIRECTORY_OPTION="$SUBDIRECTORY_OPTION --subdirectory $subdirectory"
   done
 fi

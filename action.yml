@@ -38,8 +38,8 @@ inputs:
     description: "Enable Software Composition Analysis (SCA)"
     required: false
     default: "false"
-  subdirectories:
-    description: "The subdirectory path pattern or glob that the analysis should be limited to. For example, "\src packages\"."
+  subdirectory:
+    description: "A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: \"src\" or \"src packages\"."
     required: false
     default: ""
   architecture:
@@ -62,7 +62,7 @@ runs:
     CPU_COUNT: ${{ inputs.cpu_count }}
     ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
     ENABLE_DEBUG: ${{ inputs.debug }}
-    SUBDIRECTORIES: ${{ inputs.subdirectories }}
+    SUBDIRECTORY: ${{ inputs.subdirectory }}
     SCA_ENABLED: ${{ inputs.sca_enabled }}
     ARCHITECTURE: ${{ inputs.architecture }}
     DIFF_AWARE: ${{ inputs.diff_aware }}
