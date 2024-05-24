@@ -39,7 +39,7 @@ inputs:
     required: false
     default: "false"
   subdirectory:
-    description: "The subdirectory path the analysis should be limited to."
+    description: "A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: \"src\" or \"src packages\"."
     required: false
     default: ""
   architecture:

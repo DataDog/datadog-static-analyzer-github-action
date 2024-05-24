@@ -40,10 +40,10 @@ else
     DEBUG_ARGUMENT_VALUE="no"
 fi
 
-if [ -z "$SUBDIRECTORY" ]; then
-    SUBDIRECTORY_OPTION=""
-else
-    SUBDIRECTORY_OPTION="--subdirectory ${SUBDIRECTORY}"
+if [ -n "$SUBDIRECTORY" ]; then
+  for subdirectory in $SUBDIRECTORY; do
+    SUBDIRECTORY_OPTION="$SUBDIRECTORY_OPTION --subdirectory $subdirectory"
+  done
 fi
 
 if [ "$DIFF_AWARE" = "true" ]; then
