@@ -137,19 +137,5 @@ echo "Done"
 # SCA/SBOM
 ########################################################
 if [ "${SCA_ENABLED}" = "true" ] || [ "${SCA_ENABLED}" = "yes" ]; then
-  SCA_OUTPUT_FILE="$OUTPUT_DIRECTORY/trivy.json"
-  echo "Generating SBOM"
-  trivy fs --output "${SCA_OUTPUT_FILE}" --format cyclonedx . > /dev/null 2>&1
-
-  if [ -f "${SCA_OUTPUT_FILE}" ]; then
-    echo "Uploading SBOM to Datadog"
-    DD_BETA_COMMANDS_ENABLED=1 ${DATADOG_CLI_PATH} sbom upload --service "$DD_SERVICE" --env "$DD_ENV" "${SCA_OUTPUT_FILE}" || exit 1
-    echo "Done"
-  else
-    echo "SBOM not generated, not uploading"
-    exit 1
-  fi
-  echo "Done"
-else
-  echo "SCA not enabled (sca_enabled value ${SCA_ENABLED}), skipping"
+  echo "SCA no longer supported in this GitHub action, use https://github.com/DataDog/datadog-sca-github-action"
 fi
