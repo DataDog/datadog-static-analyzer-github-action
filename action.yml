@@ -90,6 +90,7 @@ runs:
         echo "diff_aware=$DIFF_AWARE"
         echo "output_file=$OUTPUT_FILE"
         echo "subdirectory_option=$SUBDIRECTORY_OPTION"
+        echo "gh_workspace=$GITHUB_WORKSPACE"
     - uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
