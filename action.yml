@@ -76,17 +76,8 @@ runs:
         DD_ENV: ${{ inputs.dd_env }}
         DD_SITE: ${{ inputs.dd_site }}
       with:
-        args:
-          - -i
-          - ${{ github.workspace }}
-          - -g
-          - -o
-          - ${{ steps.process_inputs.outputs.output_file }}
-          - -f
-          - sarif
-          - --cpus
-          - ${{ inputs.cpu_count }}
-          - ${{ inputs.enable_performance_statistics == 'true' && "--performance-statistics" || "" }}
-          - ${{ inputs.debug == 'yes' && "--debug yes" || "" }}
-          - ${{ steps.process_inputs.outputs.subdirectory_option }}
-          - ${{ inputs.diff_aware == 'true' && "--diff-aware" || "" }}
+        args: >-
+          -i ${{ github.workspace }} -g -o ${{ steps.process_inputs.outputs.output_file }} -f sarif --cpus ${{ inputs.cpu_count }}
+          ${{ inputs.enable_performance_statistics == 'true' && "--performance-statistics" || "" }}
+          ${{ inputs.debug == 'yes' && "--debug yes" || "" }} ${{ steps.process_inputs.outputs.subdirectory_option }}
+          ${{ inputs.diff_aware == 'true' && "--diff-aware" || "" }}
