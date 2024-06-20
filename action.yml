@@ -115,6 +115,7 @@ runs:
         DD_ENV: ${{ inputs.dd_env }}
         DD_SITE: ${{ inputs.dd_site }}
       with:
-        entrypoint: datadog-ci
+        entrypoint: /bin/bash
         args: >-
-          sarif upload ${{ steps.process_inputs.outputs.output_file }} --service ${{ env.DD_SERVICE }} --env ${{ env.DD_ENV }}
+          -c
+          "datadog-ci sarif upload ${{ steps.process_inputs.outputs.output_file }} --service ${{ inputs.dd_service }} --env ${{ inputs.dd_env }} || exit 1"
