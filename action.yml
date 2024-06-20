@@ -85,13 +85,9 @@ runs:
         else
           DIFF_AWARE=""
         fi
-        echo "perf=$PERFORMANCE_STATISTICS"
-        echo "debug=$DEBUG"
-        echo "diff_aware=$DIFF_AWARE"
-        echo "output_file=$OUTPUT_FILE"
-        echo "subdirectory_option=$SUBDIRECTORY_OPTION"
-        echo "gh_workspace=$GITHUB_WORKSPACE"
-    - uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
+
+    - name: Run Analysis
+      uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
         DD_APP_KEY: ${{ inputs.dd_app_key }}
@@ -109,3 +105,16 @@ runs:
           ${{ steps.process_inputs.outputs.debug }}
           ${{ steps.process_inputs.outputs.subdirectory_option }}
           ${{ steps.process_inputs.outputs.diff_aware }}
+
+    - name: Upload Analysis Results to Datadog
+      uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
+      env:
+        DD_API_KEY: ${{ inputs.dd_api_key }}
+        DD_APP_KEY: ${{ inputs.dd_app_key }}
+        DD_SERVICE: ${{ inputs.dd_service }}
+        DD_ENV: ${{ inputs.dd_env }}
+        DD_SITE: ${{ inputs.dd_site }}
+      with:
+        entrypoint: datadog-ci
+        args: >-
+          sarif upload ${{ steps.process_inputs.outputs.output_file }} --service ${{ env.DD_SERVICE }} --env ${{ env.DD_ENV }}
