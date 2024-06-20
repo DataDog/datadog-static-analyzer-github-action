@@ -92,10 +92,23 @@ runs:
         DD_ENV: ${{ inputs.dd_env }}
         DD_SITE: ${{ inputs.dd_site }}
       with:
+        entrypoint: /bin/bash
+        args: >-
+          -c "cd /github/workspace && ls -R && git status && git remote -v"
+
+    - name: Run Analysis
+      uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
+      env:
+        DD_API_KEY: ${{ inputs.dd_api_key }}
+        DD_APP_KEY: ${{ inputs.dd_app_key }}
+        DD_SERVICE: ${{ inputs.dd_service }}
+        DD_ENV: ${{ inputs.dd_env }}
+        DD_SITE: ${{ inputs.dd_site }}
+      with:
         args: >-
           -i /github/workspace
           -g
-          -o /github/home/output.sarif
+          -o /github/workspace/output.sarif
           -f sarif
           --cpus ${{ inputs.cpu_count }}
           ${{ steps.process_inputs.outputs.performance_statistics }}
