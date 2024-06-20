@@ -39,7 +39,7 @@ inputs:
     required: false
     default: "false"
   subdirectory:
-    description: "A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: \"src\" or \"src packages\"."
+    description: 'A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: "src" or "src packages".'
     required: false
     default: ""
   architecture:
@@ -51,18 +51,76 @@ inputs:
     required: false
     default: "true"
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  env:
-    DD_API_KEY: ${{ inputs.dd_api_key }}
-    DD_APP_KEY: ${{ inputs.dd_app_key }}
-    DD_SERVICE: ${{ inputs.dd_service }}
-    DD_ENV: ${{ inputs.dd_env }}
-    DD_SITE: ${{ inputs.dd_site }}
-    CPU_COUNT: ${{ inputs.cpu_count }}
-    ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
-    ENABLE_DEBUG: ${{ inputs.debug }}
-    SUBDIRECTORY: ${{ inputs.subdirectory }}
-    SCA_ENABLED: ${{ inputs.sca_enabled }}
-    ARCHITECTURE: ${{ inputs.architecture }}
-    DIFF_AWARE: ${{ inputs.diff_aware }}
+  using: "composite"
+  steps:
+    - name: Process Inputs
+      id: process_inputs
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.subdirectory}}" ]; then
+          for subdirectory in ${{ inputs.subdirectory }}; do
+            SUBDIRECTORY_OPTION="$SUBDIRECTORY_OPTION --subdirectory $subdirectory"
+          done
+        else
+          SUBDIRECTORY_OPTION=""
+        fi
+        echo "subdirectory_option=$SUBDIRECTORY_OPTION" >> $GITHUB_ENV
+        if [ "${{ inputs.enable_performance_statistics }}" == "true" ]; then
+          PERFORMANCE_STATISTICS="--performance-statistics"
+        else
+          PERFORMANCE_STATISTICS=""
+        fi
+        echo "performance_statistics=$PERFORMANCE_STATISTICS" >> $GITHUB_ENV
+        if [ "${{ inputs.debug }}" == "yes" ]; then
+          DEBUG="--debug yes"
+        else
+          DEBUG=""
+        fi
+        echo "debug=$DEBUG" >> $GITHUB_ENV
+        if [ "${{ inputs.diff_aware }}" == "true" ]; then
+          DIFF_AWARE="--diff-aware"
+        else
+          DIFF_AWARE=""
+        fi
+
+    - name: Mark the repository as safe
+      uses: docker://ghcr.io/datadog/datadog-static-analyzer:main
+      with:
+        entrypoint: /bin/bash
+        args: >-
+          -c "git config --global --add safe.directory /github/workspace"
+
+    - name: Run Analysis
+      uses: docker://ghcr.io/datadog/datadog-static-analyzer:main
+      env:
+        DD_API_KEY: ${{ inputs.dd_api_key }}
+        DD_APP_KEY: ${{ inputs.dd_app_key }}
+        DD_SERVICE: ${{ inputs.dd_service }}
+        DD_ENV: ${{ inputs.dd_env }}
+        DD_SITE: ${{ inputs.dd_site }}
+      with:
+        args: >-
+          -i /github/workspace
+          -g
+          -o /github/workspace/output.sarif
+          -f sarif
+          --cpus ${{ inputs.cpu_count }}
+          ${{ steps.process_inputs.outputs.performance_statistics }}
+          ${{ steps.process_inputs.outputs.debug }}
+          ${{ steps.process_inputs.outputs.subdirectory_option }}
+          ${{ steps.process_inputs.outputs.diff_aware }}
+
+    - name: Upload Analysis Results to Datadog
+      uses: docker://ghcr.io/datadog/datadog-static-analyzer:main
+      env:
+        DD_API_KEY: ${{ inputs.dd_api_key }}
+        DD_APP_KEY: ${{ inputs.dd_app_key }}
+        DD_SERVICE: ${{ inputs.dd_service }}
+        DD_ENV: ${{ inputs.dd_env }}
+        DD_SITE: ${{ inputs.dd_site }}
+      with:
+        entrypoint: datadog-ci
+        args: >-
+          sarif upload /github/workspace/output.sarif
+          --service ${{ env.DD_SERVICE }}
+          --env ${{ env.DD_ENV }}
