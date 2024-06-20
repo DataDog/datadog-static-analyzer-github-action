@@ -59,8 +59,9 @@ runs:
       run: |
         OUTPUT_DIRECTORY=$(mktemp -d)
         OUTPUT_FILE=$OUTPUT_DIRECTORY/output.sarif
+        echo "perf=${{inputs.enable_performance_statistics}}"
         echo "output_file=$OUTPUT_FILE" >> $GITHUB_ENV
-        if [ -n "${{ inputs.subdirectory}}"]; then
+        if [ -n "${{ inputs.subdirectory}}" ]; then
           for subdirectory in ${{ inputs.subdirectory }}; do
             SUBDIRECTORY_OPTION="$SUBDIRECTORY_OPTION --subdirectory $subdirectory"
           done
@@ -68,12 +69,23 @@ runs:
           SUBDIRECTORY_OPTION=""
         fi
         echo "subdirectory_option=$SUBDIRECTORY_OPTION" >> $GITHUB_ENV
-        if [ -n inputs.enable_performance_statistics ]; then
+        if [ "${{ inputs.enable_performance_statistics }}" == "true" ]; then
           PERFORMANCE_STATISTICS="--performance-statistics"
         else
           PERFORMANCE_STATISTICS=""
         fi
         echo "performance_statistics=$PERFORMANCE_STATISTICS" >> $GITHUB_ENV
+        if [ "${{ inputs.debug }}" == "yes" ]; then
+          DEBUG="--debug yes"
+        else
+          DEBUG=""
+        fi
+        echo "debug=$DEBUG" >> $GITHUB_ENV
+        if [ "${{ inputs.diff_aware }}" == "true" ]; then
+          DIFF_AWARE="--diff-aware"
+        else
+          DIFF_AWARE=""
+        fi
     - uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
@@ -83,7 +95,12 @@ runs:
         DD_SITE: ${{ inputs.dd_site }}
       with:
         args: >-
-          -i ${{ github.workspace }} -g -o ${{ steps.process_inputs.outputs.output_file }} -f sarif --cpus ${{ inputs.cpu_count }}
+          -i ${{ github.workspace }}
+          -g
+          -o ${{ steps.process_inputs.outputs.output_file }}
+          -f sarif
+          --cpus ${{ inputs.cpu_count }}
           ${{ steps.process_inputs.outputs.performance_statistics }}
-          ${{ inputs.debug == 'yes' && "--debug yes" || "" }} ${{ steps.process_inputs.outputs.subdirectory_option }}
-          ${{ inputs.diff_aware == 'true' && "--diff-aware" || "" }}
+          ${{ steps.process_inputs.outputs.debug }}
+          ${{ steps.process_inputs.outputs.subdirectory_option }}
+          ${{ steps.process_inputs.outputs.diff_aware }}
