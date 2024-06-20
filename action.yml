@@ -99,7 +99,7 @@ runs:
         DD_SITE: ${{ inputs.dd_site }}
       with:
         args: >-
-          -i ${{ github.workspace }}
+          -i $GITHUB_WORKSPACE
           -g
           -o ${{ steps.process_inputs.outputs.output_file }}
           -f sarif
