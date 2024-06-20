@@ -68,6 +68,12 @@ runs:
           SUBDIRECTORY_OPTION=""
         fi
         echo "subdirectory_option=$SUBDIRECTORY_OPTION" >> $GITHUB_ENV
+        if [ -n inputs.enable_performance_statistics ]; then
+          PERFORMANCE_STATISTICS="--performance-statistics"
+        else
+          PERFORMANCE_STATISTICS=""
+        fi
+        echo "performance_statistics=$PERFORMANCE_STATISTICS" >> $GITHUB_ENV
     - uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
@@ -78,6 +84,6 @@ runs:
       with:
         args: >-
           -i ${{ github.workspace }} -g -o ${{ steps.process_inputs.outputs.output_file }} -f sarif --cpus ${{ inputs.cpu_count }}
-          ${{ inputs.enable_performance_statistics == 'true' && "--performance-statistics" || "" }}
+          ${{ steps.process_inputs.outputs.performance_statistics }}
           ${{ inputs.debug == 'yes' && "--debug yes" || "" }} ${{ steps.process_inputs.outputs.subdirectory_option }}
           ${{ inputs.diff_aware == 'true' && "--diff-aware" || "" }}
