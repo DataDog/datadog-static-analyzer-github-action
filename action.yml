@@ -83,7 +83,7 @@ runs:
           DIFF_AWARE=""
         fi
 
-    - name: Run Analysis
+    - name: Mark the repository as safe
       uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
@@ -94,7 +94,7 @@ runs:
       with:
         entrypoint: /bin/bash
         args: >-
-          -c "cd /github/workspace && ls -R && git status && git remote -v"
+          -c "git config --global --add safe.directory /github/workspace"
 
     - name: Run Analysis
       uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
