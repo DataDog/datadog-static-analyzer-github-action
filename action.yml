@@ -66,3 +66,18 @@ runs:
     SCA_ENABLED: ${{ inputs.sca_enabled }}
     ARCHITECTURE: ${{ inputs.architecture }}
     DIFF_AWARE: ${{ inputs.diff_aware }}
+  args:
+    - -i
+    - ${{ github.workspace }}
+    - -g
+    - -o
+    - $RUNNER_TEMP/output.sarif
+    - -f
+    - sarif
+    - --cpus
+    - ${{ inputs.cpu_count }}
+    - ${{ inputs.enable_performance_statistics == 'true' && '--enable-performance-statistics' || '' }}
+    - ${{ inputs.debug == 'yes' && '--debug yes' || '--debug no' }}
+    - ${{ join(' ', map(split(inputs.subdirectory, ' '), subdirectory => '--subdirectory ' + subdirectory)) }}
+    - ${{ inputs.diff_aware == 'true' && '--diff-aware' || '' }}
+  post-entrypoint: datadog-ci sarif upload $RUNNER_TEMP/output.sarif --service ${{ inputs.dd_service }} --env ${{ inputs.dd_env }}
