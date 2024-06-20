@@ -95,7 +95,7 @@ runs:
         args: >-
           -i /github/workspace
           -g
-          -o /github/workspace/output.sarif
+          -o ${{ steps.process_inputs.outputs.output_file }}
           -f sarif
           --cpus ${{ inputs.cpu_count }}
           ${{ steps.process_inputs.outputs.performance_statistics }}
