@@ -57,9 +57,6 @@ runs:
       id: process_inputs
       shell: bash
       run: |
-        OUTPUT_DIRECTORY=$(mktemp -d)
-        OUTPUT_FILE=$OUTPUT_DIRECTORY/output.sarif
-        echo "output_file=$OUTPUT_FILE" >> $GITHUB_ENV
         if [ -n "${{ inputs.subdirectory}}" ]; then
           for subdirectory in ${{ inputs.subdirectory }}; do
             SUBDIRECTORY_OPTION="$SUBDIRECTORY_OPTION --subdirectory $subdirectory"
@@ -98,7 +95,7 @@ runs:
         args: >-
           -i /github/workspace
           -g
-          -o ${{ steps.process_inputs.outputs.output_file }}
+          -o /github/workspace/output.sarif
           -f sarif
           --cpus ${{ inputs.cpu_count }}
           ${{ steps.process_inputs.outputs.performance_statistics }}
@@ -117,6 +114,6 @@ runs:
       with:
         entrypoint: datadog-ci
         args: >-
-          sarif upload ${{ env.output_file }}
+          sarif upload /github/workspace/output.sarif
           --service ${{ env.DD_SERVICE }}
           --env ${{ env.DD_ENV }}
