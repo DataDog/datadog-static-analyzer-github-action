@@ -85,12 +85,6 @@ runs:
 
     - name: Mark the repository as safe
       uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
-      env:
-        DD_API_KEY: ${{ inputs.dd_api_key }}
-        DD_APP_KEY: ${{ inputs.dd_app_key }}
-        DD_SERVICE: ${{ inputs.dd_service }}
-        DD_ENV: ${{ inputs.dd_env }}
-        DD_SITE: ${{ inputs.dd_site }}
       with:
         entrypoint: /bin/bash
         args: >-
@@ -127,6 +121,6 @@ runs:
       with:
         entrypoint: datadog-ci
         args: >-
-          sarif upload /github/home/output.sarif
+          sarif upload /github/workspace/output.sarif
           --service ${{ env.DD_SERVICE }}
           --env ${{ env.DD_ENV }}
