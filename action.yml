@@ -51,33 +51,42 @@ inputs:
     required: false
     default: "true"
 runs:
-  using: "docker"
-  image: docker://ghcr.io/amaanq/datadog-static-analyzer:main
-  env:
-    DD_API_KEY: ${{ inputs.dd_api_key }}
-    DD_APP_KEY: ${{ inputs.dd_app_key }}
-    DD_SERVICE: ${{ inputs.dd_service }}
-    DD_ENV: ${{ inputs.dd_env }}
-    DD_SITE: ${{ inputs.dd_site }}
-    CPU_COUNT: ${{ inputs.cpu_count }}
-    ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
-    ENABLE_DEBUG: ${{ inputs.debug }}
-    SUBDIRECTORY: ${{ inputs.subdirectory }}
-    SCA_ENABLED: ${{ inputs.sca_enabled }}
-    ARCHITECTURE: ${{ inputs.architecture }}
-    DIFF_AWARE: ${{ inputs.diff_aware }}
-  entrypoint: main.sh
-  # args:
-  #   - -i
-  #   - $GITHUB_WORKSPACE
-  #   - -g
-  #   - -o
-  #   - $RUNNER_TEMP/output.sarif
-  #   - -f
-  #   - sarif
-  #   - --cpus
-  #   - ${{ inputs.cpu_count }}
-  #   - ${{ inputs.enable_performance_statistics == 'true' && '--enable-performance-statistics' || '' }}
-  #   - ${{ inputs.debug == 'yes' && '--debug yes' || '--debug no' }}
-  #   - ${{ join(' ', '-subdirectory', split(inputs.subdirectory, ' ')) }}
-  #   - ${{ inputs.diff_aware == 'true' && '--diff-aware' || '' }}
+  using: "composite"
+  steps:
+    - name: Process Inputs
+      id: process_inputs
+      shell: bash
+      run: |
+        OUTPUT_DIRECTORY=$(mktemp -d)
+        OUTPUT_FILE=$OUTPUT_DIRECTORY/output.sarif
+        echo "output_file=$OUTPUT_FILE" >> $GITHUB_ENV
+        if [ -n "${{ inputs.subdirectory}}"]; then
+          for subdirectory in ${{ inputs.subdirectory }}; do
+            SUBDIRECTORY_OPTION="$SUBDIRECTORY_OPTION --subdirectory $subdirectory"
+          done
+        else
+          SUBDIRECTORY_OPTION=""
+        fi
+        echo "subdirectory_option=$SUBDIRECTORY_OPTION" >> $GITHUB_ENV
+    - uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
+      env:
+        DD_API_KEY: ${{ inputs.dd_api_key }}
+        DD_APP_KEY: ${{ inputs.dd_app_key }}
+        DD_SERVICE: ${{ inputs.dd_service }}
+        DD_ENV: ${{ inputs.dd_env }}
+        DD_SITE: ${{ inputs.dd_site }}
+      with:
+        args:
+          - -i
+          - ${{ github.workspace }}
+          - -g
+          - -o
+          - ${{ steps.process_inputs.outputs.output_file }}
+          - -f
+          - sarif
+          - --cpus
+          - ${{ inputs.cpu_count }}
+          - ${{ inputs.enable_performance_statistics == 'true' && "--performance-statistics" || "" }}
+          - ${{ inputs.debug == 'yes' && "--debug yes" || "" }}
+          - ${{ steps.process_inputs.outputs.subdirectory_option }}
+          - ${{ inputs.diff_aware == 'true' && "--diff-aware" || "" }}
