@@ -98,7 +98,7 @@ runs:
         args: >-
           -i /github/workspace
           -g
-          -o ${{ steps.process_inputs.outputs.output_file }}
+          -o ${{ env.output_file }}
           -f sarif
           --cpus ${{ inputs.cpu_count }}
           ${{ steps.process_inputs.outputs.performance_statistics }}
@@ -115,7 +115,8 @@ runs:
         DD_ENV: ${{ inputs.dd_env }}
         DD_SITE: ${{ inputs.dd_site }}
       with:
-        entrypoint: /bin/bash
+        entrypoint: datadog-ci
         args: >-
-          -c
-          "datadog-ci sarif upload ${{ steps.process_inputs.outputs.output_file }} --service ${{ inputs.dd_service }} --env ${{ inputs.dd_env }} || exit 1"
+          sarif upload ${{ env.output_file }}
+          --service ${{ env.DD_SERVICE }}
+          --env ${{ env.DD_ENV }}
