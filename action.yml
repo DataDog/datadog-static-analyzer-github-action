@@ -59,7 +59,6 @@ runs:
       run: |
         OUTPUT_DIRECTORY=$(mktemp -d)
         OUTPUT_FILE=$OUTPUT_DIRECTORY/output.sarif
-        echo "perf=${{inputs.enable_performance_statistics}}"
         echo "output_file=$OUTPUT_FILE" >> $GITHUB_ENV
         if [ -n "${{ inputs.subdirectory}}" ]; then
           for subdirectory in ${{ inputs.subdirectory }}; do
@@ -86,6 +85,11 @@ runs:
         else
           DIFF_AWARE=""
         fi
+        echo "perf=$PERFORMANCE_STATISTICS"
+        echo "debug=$DEBUG"
+        echo "diff_aware=$DIFF_AWARE"
+        echo "output_file=$OUTPUT_FILE"
+        echo "subdirectory_option=$SUBDIRECTORY_OPTION"
     - uses: docker://ghcr.io/amaanq/datadog-static-analyzer:main
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
