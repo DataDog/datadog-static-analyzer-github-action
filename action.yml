@@ -84,14 +84,14 @@ runs:
         fi
 
     - name: Mark the repository as safe
-      uses: docker://ghcr.io/datadog/datadog-static-analyzer:main
+      uses: docker://ghcr.io/datadog/datadog-static-analyzer:latest
       with:
         entrypoint: /bin/bash
         args: >-
           -c "git config --global --add safe.directory /github/workspace"
 
     - name: Run Analysis
-      uses: docker://ghcr.io/datadog/datadog-static-analyzer:main
+      uses: docker://ghcr.io/datadog/datadog-static-analyzer:latest
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
         DD_APP_KEY: ${{ inputs.dd_app_key }}
@@ -111,7 +111,7 @@ runs:
           ${{ steps.process_inputs.outputs.diff_aware }}
 
     - name: Upload Analysis Results to Datadog
-      uses: docker://ghcr.io/datadog/datadog-static-analyzer:main
+      uses: docker://ghcr.io/datadog/datadog-static-analyzer:latest
       env:
         DD_API_KEY: ${{ inputs.dd_api_key }}
         DD_APP_KEY: ${{ inputs.dd_app_key }}
