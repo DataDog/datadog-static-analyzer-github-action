@@ -53,6 +53,7 @@ inputs:
 runs:
   using: "docker"
   image: "docker://ghcr.io/datadog/datadog-static-analyzer:latest"
+  entrypoint: "entrypoint.sh"
   env:
     DD_API_KEY: ${{ inputs.dd_api_key }}
     DD_APP_KEY: ${{ inputs.dd_app_key }}
