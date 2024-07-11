@@ -52,44 +52,6 @@ else
     DIFF_AWARE_VALUE=""
 fi
 
-# verify ARCHITECTURE is x86_64 or aarch64
-if [ "$ARCHITECTURE" != "x86_64" ] && [ "$ARCHITECTURE" != "aarch64" ]; then
-    echo "ARCHITECTURE must be x86_64 or aarch64"
-    exit 1
-fi
-
-########################################################
-# static analyzer tool stuff
-########################################################
-TOOL_DIRECTORY=$(mktemp -d)
-
-if [ ! -d "$TOOL_DIRECTORY" ]; then
-    echo "Tool directory $TOOL_DIRECTORY does not exist"
-    exit 1
-fi
-
-cd "$TOOL_DIRECTORY" || exit 1
-curl -L -o datadog-static-analyzer.zip https://github.com/DataDog/datadog-static-analyzer/releases/latest/download/datadog-static-analyzer-$ARCHITECTURE-unknown-linux-gnu.zip >/dev/null 2>&1 || exit 1
-unzip datadog-static-analyzer >/dev/null 2>&1 || exit 1
-CLI_LOCATION=$TOOL_DIRECTORY/datadog-static-analyzer
-
-########################################################
-# datadog-ci stuff
-########################################################
-echo "Installing 'datadog-ci'"
-npm install -g @datadog/datadog-ci || exit 1
-
-DATADOG_CLI_PATH=/usr/bin/datadog-ci
-
-# Check that datadog-ci was installed
-if [ ! -x $DATADOG_CLI_PATH ]; then
-    echo "The datadog-ci was not installed correctly, not found in $DATADOG_CLI_PATH."
-    exit 1
-fi
-
-echo "Done: datadog-ci available $DATADOG_CLI_PATH"
-echo "Version: $($DATADOG_CLI_PATH version)"
-
 ########################################################
 # output directory
 ########################################################
@@ -126,11 +88,11 @@ if [ "$DIFF_AWARE" = "true" ]; then
 fi
 
 echo "Starting Static Analysis"
-$CLI_LOCATION -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE|| exit 1
+/usr/local/bin/datadog-static-analyzer -i "$GITHUB_WORKSPACE" -g -o "$OUTPUT_FILE" -f sarif --cpus "$CPU_COUNT" "$ENABLE_PERFORMANCE_STATISTICS" --debug $DEBUG_ARGUMENT_VALUE $SUBDIRECTORY_OPTION $DIFF_AWARE_VALUE|| exit 1
 echo "Done"
 
 echo "Uploading Static Analysis Results to Datadog"
-${DATADOG_CLI_PATH} sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$DD_ENV" || exit 1
+/usr/bin/datadog-ci sarif upload "$OUTPUT_FILE" --service "$DD_SERVICE" --env "$DD_ENV" || exit 1
 echo "Done"
 
 ########################################################
