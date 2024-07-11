@@ -39,7 +39,7 @@ inputs:
     required: false
     default: "false"
   subdirectory:
-    description: "A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: \"src\" or \"src packages\"."
+    description: 'A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: "src" or "src packages".'
     required: false
     default: ""
   architecture:
@@ -52,7 +52,8 @@ inputs:
     default: "true"
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "docker://ghcr.io/datadog/datadog-static-analyzer:latest"
+  entrypoint: "github-action.sh"
   env:
     DD_API_KEY: ${{ inputs.dd_api_key }}
     DD_APP_KEY: ${{ inputs.dd_app_key }}
