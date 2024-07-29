@@ -2,28 +2,8 @@
 
 ## Overview
 
-Run a [Datadog Static Analysis][1] job in your GitHub Action workflows. 
-
-## Setup
-
-To use Datadog Static Analysis, you need to add a `static-analysis.datadog.yml` file to your repository's root directory to specify which rulesets to use.
-
-```yaml
-rulesets:
-  - <ruleset-name>
-  - <ruleset-name>
-```
-
-### Example for Python
-
-You can see an example for Python-based repositories:
-
-```yaml
-rulesets:
-  - python-code-style
-  - python-best-practices
-  - python-inclusive
-```
+Run a [Datadog Static Analysis][1] job in your GitHub Action workflows. This action wraps the [Datadog Static Analyzer][8],
+invokes it against your codebase, and uploads the results to Datadog.
 
 ## Workflow
 
@@ -49,12 +29,14 @@ jobs:
           dd_api_key: ${{ secrets.DD_API_KEY }}
           dd_service: "my-service"
           dd_env: "ci"
-          dd_site: {{< region-param key="dd_site" code="true" >}}
+          dd_site: "datadoghq.com"
           cpu_count: 2
           enable_performance_statistics: false
 ```
 
 You **must** set your Datadog API and application keys as [secrets in your GitHub repository][4] whether at the organization or repository level. For more information, see [API and Application Keys][2].
+
+Make sure to replace `dd_site` with the Datadog site you are using[3].
 
 ## Inputs
 
@@ -81,6 +63,39 @@ You can set the following parameters for Static Analysis.
 2. Secrets scanning is in private beta. To enable secrets scanning, please contact your Datadog customer success manager.
 
 
+## Customizing rules
+
+By default, [Datadog Static Analyzer][8] detects the languages of your codebase and uses the default rulesets to analyze
+your codebase.
+
+To specify and customize the rulesets, add a `static-analysis.datadog.yml` file to your repository's root directory to define which rulesets to use.
+
+```yaml
+rulesets:
+  - <ruleset-name>
+  - <ruleset-name>
+```
+
+Refer to the [Datadog documentation][6] for a complete list of rulesets.
+
+### Example for Python
+
+Here is an example for Python-based repositories:
+
+```yaml
+rulesets:
+  - python-code-style
+  - python-best-practices
+  - python-inclusive
+```
+
+
+## Other useful GitHub Actions
+
+Datadog Software Composition Analysis (SCA) also offers the ability to scan your dependencies
+and detect vulnerabilities and licenses. You can use this product with the [`datadog-sca-github-action`][7].
+
+
 ## Further Reading
 
 Additional helpful documentation, links, and articles:
@@ -92,3 +107,6 @@ Additional helpful documentation, links, and articles:
 [3]: https://docs.datadoghq.com/getting_started/site/
 [4]: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository
 [5]: https://github.com/DataDog/datadog-static-analyzer/blob/main/README.md#diff-aware-scanning
+[6]: https://docs.datadoghq.com/code_analysis/static_analysis_rules/
+[7]: https://github.com/DataDog/datadog-sca-github-action
+[8]: https://github.com/DataDog/datadog-static-analyzer
