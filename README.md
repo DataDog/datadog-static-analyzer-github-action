@@ -86,7 +86,7 @@ rulesets:
 ```
 
 
-## Other useful GitHub actions
+## Other useful GitHub Actions
 
 Datadog Software Composition Analysis (SCA) also offers the ability to scan your dependencies
 and detect vulnerabilities and licenses. You can use this product with the [`datadog-sca-github-action`][7].
