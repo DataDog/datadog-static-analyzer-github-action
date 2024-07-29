@@ -38,6 +38,10 @@ inputs:
     description: "Enable Software Composition Analysis (SCA) - DEPRECATED"
     required: false
     default: "false"
+  secrets_enabled:
+    description: "Enable Secrets Detection - BETA"
+    required: false
+    default: "false"
   subdirectory:
     description: 'A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: "src" or "src packages".'
     required: false
@@ -67,3 +71,4 @@ runs:
     SCA_ENABLED: ${{ inputs.sca_enabled }}
     ARCHITECTURE: ${{ inputs.architecture }}
     DIFF_AWARE: ${{ inputs.diff_aware }}
+    SECRETS_ENABLED: ${{ inputs.secrets_enabled }}
