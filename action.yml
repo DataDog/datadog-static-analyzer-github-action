@@ -1,6 +1,9 @@
 name: "Datadog Static Analysis"
 description: "Run a Datadog Static Analysis in your Github Action workflows"
 author: "Datadog"
+branding:
+  icon: 'check'
+  color: 'purple'
 inputs:
   dd_api_key:
     description: "Your Datadog API key used to authenticate requests."
