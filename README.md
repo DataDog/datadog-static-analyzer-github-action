@@ -60,21 +60,26 @@ You **must** set your Datadog API and application keys as [secrets in your GitHu
 
 You can set the following parameters for Static Analysis.
 
-**Note:** Diff-aware scanning only scans the files modified by a commit when analyzing feature branches. Diff-aware is enabled by default. To disable diff-aware scanning, set the GitHub action `diff_aware` parameter to `false`.
+| Name         | Description                                                                                                                                             | Required | Default         |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-----------------|
+| `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][2] and should be stored as a [secret][2].                                      | Yes     |                 |
+| `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][2] and should be stored as a [secret][4].                              | Yes     |                 |
+| `dd_service` | The service you want your results tagged with.                                                                                                          | Yes     |                 |
+| `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.                                           | No      | `none`          |
+| `dd_site`    | The [Datadog site][3] to send information to.                                                                                                           | No      | `datadoghq.com` |
+| `cpu_count`  | Set the number of CPUs used to by the analyzer.                                                                                                         | No      | `2`             |
+| `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                                                                   | No      | `false`         |
+| `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                                                  | No      | `no`            |
+| `subdirectory` | A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: "src" or "src packages". | `false` |                 |
+| `architecture` | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                                                              | No      | `x86_64`        |
+| `diff_aware` | Enable [diff-aware scanning mode][5].                                                                                                                   | No      | `true`          |
+| `secrets_enabled` | Enable secrets detection (in private beta)                                                                                                              | No      | `false`         |
 
-| Name         | Description                                                                                                                | Required | Default         |
-|--------------|----------------------------------------------------------------------------------------------------------------------------|----------|-----------------|
-| `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][2] and should be stored as a [secret][2].         | Yes     |                 |
-| `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][2] and should be stored as a [secret][4]. | Yes     |                 |
-| `dd_service` | The service you want your results tagged with.                                                                             | Yes     |                 |
-| `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.              | No      | `none`          |
-| `dd_site`    | The [Datadog site][3] to send information to.                                                                              | No      | `datadoghq.com` |
-| `cpu_count`  | Set the number of CPUs used to by the analyzer.                                                                            | No      | `2`             |
-| `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                   | No      | `false`         |
-| `debug`      | Lets the analyzer print additional logs useful for debugging. To enable, set to `yes`.                                     | No      | `no`            |
-| `subdirectory` | A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: "src" or "src packages". | `false` | |
-| `architecture` | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                               | No      | `x86_64`        |
-| `diff_aware` | Enable [diff-aware scanning mode][5].                                                                                      | No      | `true`          |
+### Notes
+
+1. Diff-aware scanning only scans the files modified by a commit when analyzing feature branches. Diff-aware is enabled by default. To disable diff-aware scanning, set the GitHub action `diff_aware` parameter to `false`.
+2. Secrets scanning is in private beta. To enable secrets scanning, please contact your Datadog customer success manager.
+
 
 ## Further Reading
 
