@@ -3,7 +3,7 @@
 ## Overview
 
 Run a [Datadog Static Analysis][1] job in your GitHub Action workflows. This action wraps the [Datadog Static Analyzer][8],
-invokes it against your codebase and uploads results to Datadog.
+invokes it against your codebase, and uploads the results to Datadog.
 
 ## Workflow
 
