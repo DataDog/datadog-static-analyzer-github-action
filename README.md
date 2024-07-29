@@ -2,7 +2,7 @@
 
 ## Overview
 
-Run a [Datadog Static Analysis][1] job in your GitHub Action workflows. This action wraps the Datadog Static Analyzer[8],
+Run a [Datadog Static Analysis][1] job in your GitHub Action workflows. This action wraps the [Datadog Static Analyzer][8],
 invokes it against your codebase and uploads results to Datadog.
 
 ## Workflow
@@ -60,7 +60,7 @@ You can set the following parameters for Static Analysis.
 
 ## Customizing rules
 
-By default, Datadog Static Analyzer[8] detects the languages of your codebase and pull the default rulesets to analyze
+By default, [Datadog Static Analyzer][8] detects the languages of your codebase and pull the default rulesets to analyze
 your codebase.
 
 If you want to specify the rulesets to use (and customize them), add a `static-analysis.datadog.yml` file to your 
@@ -72,7 +72,7 @@ rulesets:
   - <ruleset-name>
 ```
 
-The list of all rulesets is available in our documentation[6].
+The list of all rulesets is available in [Datadog documentation][6].
 
 ### Example for Python
 
@@ -89,7 +89,7 @@ rulesets:
 ## Other useful GitHub actions
 
 Datadog Software Composition Analysis (SCA) also offers the ability to scan your dependencies
-and detect vulnerabilities and licenses. You can use this product with the `datadog-sca-github-action`[7].
+and detect vulnerabilities and licenses. You can use this product with the [`datadog-sca-github-action`][7].
 
 
 ## Further Reading
