@@ -34,7 +34,7 @@ jobs:
           enable_performance_statistics: false
 ```
 
-You **must** set your Datadog API and application keys as [secrets in your GitHub repository][4] whether at the organization or repository level. Please add the `code_analysis_read` scope to your Datadog application key requ the. For more information, see [API and Application Keys][2].
+You **must** set your Datadog API and application keys as [secrets in your GitHub repository][4] whether at the organization or repository level. You must also ensure that you add the `code_analysis_read` scope to your Datadog application key. For more information, see [API and Application Keys][2].
 
 Make sure to replace `dd_site` with the Datadog site you are using[3].
 
