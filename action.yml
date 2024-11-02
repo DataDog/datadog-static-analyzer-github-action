@@ -13,14 +13,6 @@ inputs:
     description: "Your Datadog Application key used to authenticate requests."
     required: true
     default: ""
-  dd_service:
-    description: "The service you want your results tagged with."
-    required: true
-    default: ""
-  dd_env:
-    description: "The environment you want your results tagged with."
-    required: false
-    default: "none"
   dd_site:
     description: "The Datadog site. For example, users in the EU may want to set datadoghq.eu."
     required: false
@@ -64,8 +56,6 @@ runs:
   env:
     DD_API_KEY: ${{ inputs.dd_api_key }}
     DD_APP_KEY: ${{ inputs.dd_app_key }}
-    DD_SERVICE: ${{ inputs.dd_service }}
-    DD_ENV: ${{ inputs.dd_env }}
     DD_SITE: ${{ inputs.dd_site }}
     CPU_COUNT: ${{ inputs.cpu_count }}
     ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
