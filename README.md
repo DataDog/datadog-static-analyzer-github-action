@@ -27,8 +27,6 @@ jobs:
         with:
           dd_app_key: ${{ secrets.DD_APP_KEY }}
           dd_api_key: ${{ secrets.DD_API_KEY }}
-          dd_service: "my-service"
-          dd_env: "ci"
           dd_site: "datadoghq.com"
           cpu_count: 2
           enable_performance_statistics: false
@@ -46,8 +44,6 @@ You can set the following parameters for Static Analysis.
 |--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-----------------|
 | `dd_api_key` | Your Datadog API key. This key is created by your [Datadog organization][2] and should be stored as a [secret][2].                                      | Yes     |                 |
 | `dd_app_key` | Your Datadog application key. This key is created by your [Datadog organization][2] and should be stored as a [secret][4].                              | Yes     |                 |
-| `dd_service` | The service you want your results tagged with.                                                                                                          | Yes     |                 |
-| `dd_env`     | The environment you want your results tagged with. Datadog recommends using `ci` as the value for this input.                                           | No      | `none`          |
 | `dd_site`    | The [Datadog site][3] to send information to.                                                                                                           | No      | `datadoghq.com` |
 | `cpu_count`  | Set the number of CPUs used to by the analyzer.                                                                                                         | No      | `2`             |
 | `enable_performance_statistics` | Get the execution time statistics for analyzed files.                                                                                                   | No      | `false`         |
