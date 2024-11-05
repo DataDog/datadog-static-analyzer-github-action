@@ -49,6 +49,12 @@ inputs:
     description: "Enable diff aware scanning mode."
     required: false
     default: "true"
+  dd_service:
+    description: "(Deprecated)"
+    deprecationMessage: "The Datadog service is no longer configurable"
+  dd_env:
+    description: "(Deprecated)"
+    deprecationMessage: "The Datadog env is no longer configurable"
 runs:
   using: "docker"
   image: "docker://ghcr.io/datadog/datadog-static-analyzer:latest"

@@ -58,6 +58,10 @@ You can set the following parameters for Static Analysis.
 1. Diff-aware scanning only scans the files modified by a commit when analyzing feature branches. Diff-aware is enabled by default. To disable diff-aware scanning, set the GitHub action `diff_aware` parameter to `false`.
 2. Secrets scanning is in private beta. To enable secrets scanning, please contact your Datadog customer success manager.
 
+### Deprecated Inputs
+The following action inputs have been deprecated and no longer have any effect. Passing these in will emit a warning.
+* `dd_service`
+* `dd_env`
 
 ## Customizing rules
 
