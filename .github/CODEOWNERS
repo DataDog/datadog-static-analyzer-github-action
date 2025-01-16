@@ -1,5 +1,5 @@
 # Global Code Owners
-* @DataDog/static-analysis-core
+* @DataDog/k9-vm-ast
 
 # Documentation
-*README.md @Datadog/documentation @DataDog/static-analysis-core
+*README.md @Datadog/documentation @DataDog/k9-vm-ast
