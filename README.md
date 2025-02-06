@@ -51,7 +51,7 @@ You can set the following parameters for Static Analysis.
 | `subdirectory`                  | A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: "src" or "src packages". | `false` |                 |
 | `architecture`                  | The CPU architecture to use for the analyzer. Supported values are `x86_64` and `aarch64`.                                                              | No      | `x86_64`        |
 | `diff_aware`                    | Enable [diff-aware scanning mode][5].                                                                                                                   | No      | `true`          |
-| `secrets_enabled`               | Enable secrets detection (in private beta)                                                                                                              | No      | `false`         |
+| `secrets_enabled`               | Enable secrets detection (Limited Availability)                                                                                                         | No      | `false`         |
 | `static_analysis_enabled`       | Enable static analysis                                                                                                                                  | No      | `true`          |
  
 ### Notes
