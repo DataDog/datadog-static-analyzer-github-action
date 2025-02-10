@@ -29,14 +29,14 @@ inputs:
     description: "Lets the analyzer print additional logs useful for debugging."
     required: false
     default: "no"
-  sca_enabled:
-    description: "Enable Software Composition Analysis (SCA) - DEPRECATED"
-    required: false
-    default: "false"
   secrets_enabled:
-    description: "Enable Secrets Detection - BETA"
+    description: "Enable Secrets (Limited Availability)"
     required: false
     default: "false"
+  static_analysis_enabled:
+    description: "Enable Static Analysis"
+    required: false
+    default: "true"
   subdirectory:
     description: 'A subdirectory pattern or glob (or space-delimited subdirectory patterns) that the analysis should be limited to. For example: "src" or "src packages".'
     required: false
@@ -49,12 +49,6 @@ inputs:
     description: "Enable diff aware scanning mode."
     required: false
     default: "true"
-  dd_service:
-    description: "(Deprecated)"
-    deprecationMessage: "The Datadog service is no longer configurable"
-  dd_env:
-    description: "(Deprecated)"
-    deprecationMessage: "The Datadog env is no longer configurable"
 runs:
   using: "docker"
   image: "docker://ghcr.io/datadog/datadog-static-analyzer:latest"
@@ -67,7 +61,7 @@ runs:
     ENABLE_PERFORMANCE_STATISTICS: ${{ inputs.enable_performance_statistics }}
     ENABLE_DEBUG: ${{ inputs.debug }}
     SUBDIRECTORY: ${{ inputs.subdirectory }}
-    SCA_ENABLED: ${{ inputs.sca_enabled }}
     ARCHITECTURE: ${{ inputs.architecture }}
     DIFF_AWARE: ${{ inputs.diff_aware }}
     SECRETS_ENABLED: ${{ inputs.secrets_enabled }}
+    STATIC_ANALYSIS_ENABLED: ${{ inputs.static_analysis_enabled }}
